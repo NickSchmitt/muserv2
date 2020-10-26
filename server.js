@@ -5,6 +5,7 @@ const session = require('express-session')
 const passport = require('./config/ppConfig')
 const isLoggedIn = require('./middleware/isLoggedIn')
 const app = express()
+const flash = require('connect-flash')
 
 app.set('view engine', 'ejs')
 
@@ -13,15 +14,17 @@ app.use(express.urlencoded({ extended: false }))
 app.use(express.static(__dirname + '/public'))
 app.use(layouts)
 
-// app.use(session({
-//   secret: process.env.SESSION_SECRET,
-//   resave: false,
-//   saveUninitialized: true
-// }));
-// app.use(flash());
+app.use(
+  session({
+    secret: process.env.SESSION_SECRET,
+    resave: false,
+    saveUninitialized: true,
+  })
+)
+app.use(flash())
 
-// app.use(passport.initialize());
-// app.use(passport.session());
+app.use(passport.initialize())
+app.use(passport.session())
 
 // app.use((req, res, next) => {
 //   // before every route, attach the flash messages and current user to res.locals
@@ -30,13 +33,21 @@ app.use(layouts)
 //   next()
 // })
 
-app.get('/', (req, res) => {
-  res.send('Please work')
+// app.get('/', (req, res) => {
+//   {
+//     res.render('./auth/login')
+//   }
+// })
+
+app.get('/', isLoggedIn, (req, res) => {
+  {
+    res.render('index')
+  }
 })
 
-// app.get('/profile', isLoggedIn, (req, res) => {
-//   res.render('profile')
-// })
+app.get('/profile', isLoggedIn, (req, res) => {
+  res.render('profile')
+})
 
 app.use('/auth', require('./routes/auth'))
 
