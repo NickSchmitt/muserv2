@@ -48,12 +48,18 @@ passport.use(
     {
       clientID: process.env.CLIENT_ID,
       clientSecret: process.env.CLIENT_SECRET,
-      callbackURL: 'http://localhost:8888/auth/spotify/callback',
+      callbackURL: 'http://localhost:3000/auth/spotify/callback',
     },
     function (accessToken, refreshToken, expires_in, profile, done) {
-      User.findOrCreate({ spotifyId: profile.id }, function (err, user) {
-        return done(err, user)
-      })
+      db.user
+        .findOrCreate({
+          where: {
+            spotifyId: profile.id,
+          },
+        })
+        .then(function ([user, created]) {
+          return done(null, user) // returns info about the user
+        })
     }
   )
 )

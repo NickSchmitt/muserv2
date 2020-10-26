@@ -3,12 +3,13 @@ const passport = require('../config/ppConfig')
 const db = require('../models')
 const router = express.Router()
 
-router.get('/auth/spotify', passport.authenticate('spotify'))
+router.get('/spotify', passport.authenticate('spotify'))
 
 router.get(
-  '/auth/spotify/callback',
+  '/spotify/callback',
   passport.authenticate('spotify', { failureRedirect: '/login' }),
   function (req, res) {
+    console.log('test test test')
     // Successful authentication, redirect home.
     res.redirect('/')
   }
@@ -47,9 +48,9 @@ router.get(
 //   });
 // })
 
-// router.get('/login', (req, res) => {
-//   res.render('auth/login');
-// });
+router.get('/login', (req, res) => {
+  res.render('auth/login')
+})
 
 // router.post('/login', passport.authenticate('local', {
 //   successRedirect: '/',
@@ -59,9 +60,9 @@ router.get(
 // }));
 
 // router.get('/logout', (req, res) => {
-//   req.logout();
-//   req.flash('success', 'You have logged out');
-//   res.redirect('/');
-// });
+//   req.logout()
+//   req.flash('success', 'You have logged out')
+//   res.redirect('/')
+// })
 
 module.exports = router
