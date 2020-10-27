@@ -1,0 +1,13 @@
+<% // Render individual movie details here %>
+<% // This is how to do comments in EJS, by the way... %>
+
+<h1><%= track.name %></h1>
+<h2>by <%= track.artists[0].name %></h2>
+<img src="<%= track.album.images[0].url %>" alt="">
+
+<audio controls>
+    <source src="horse.ogg" type="audio/ogg">
+    <source src="horse.mp3" type="audio/mpeg">
+  Your browser does not support the audio element.
+  </audio>
+
