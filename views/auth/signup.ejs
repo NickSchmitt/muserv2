@@ -1,12 +1,31 @@
-<form action="/auth/signup" method="POST">
-  <label for="new-email">Email</label>
-  <input id="new-email" type="email" name="email">
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <link rel="stylesheet" type="text/css"   href="./public/css/style.css">
+</head>
+<body>
+  <h1>Register</h1>
+  <div class="auth">
+    <form>
+        <div class="row">
+            <div class="col">
+              <form action="/auth/signup" method="POST">
+                <input id="new-email" type="email" class="form-control" name="email" placeholder="Email" class="form-control>
+            </div>
+            <div class="col">
+              <input id="new-name" type="text" class="form-control" name="name" placeholder="Name">
+            </div>
+            <div class="col">
+                <input id="new-password" type="password" class="form-control" name="password" placeholder="Password">
+            </div>
+          </div>
+        <button type="submit" class="btn-btn-primary" value="Sign up">NEXT</button>
+      </form>
+  </div>
+</body>
+</html>
 
-  <label for="new-name">Name</label>
-  <input id="new-name" type="text" name="name">
 
-  <label for="new-password">Password</label>
-  <input id="new-password" type="password" name="password">
-
-  <input type="submit" value="Sign up">
-</form>
