@@ -90,6 +90,7 @@ app.get('/tracks/:id', function (req, res) {
       },
     })
     .then(function (spotifyResponse) {
+      console.log(spotifyResponse.data)
       res.render('track', { track: spotifyResponse.data })
     })
 })
