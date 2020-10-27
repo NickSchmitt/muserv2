@@ -51,7 +51,6 @@ app.get('/profile', isLoggedIn, (req, res) => {
 })
 
 app.get('/results', (req, res) => {
-  console.log(res.locals.currentUser)
   const queryString = {
     params: {
       q: req.query.track,
@@ -74,6 +73,24 @@ app.get('/results', (req, res) => {
     })
     .catch((error) => {
       console.log(error)
+    })
+})
+
+app.get('/tracks/:id', function (req, res) {
+  const queryString = {
+    params: {
+      id: req.params.id,
+    },
+  }
+
+  axios
+    .get(`https://api.spotify.com/v1/tracks/${queryString.params.id}`, {
+      headers: {
+        Authorization: `Bearer ${req.user.access}`,
+      },
+    })
+    .then(function (spotifyResponse) {
+      res.render('track', { track: spotifyResponse.data })
     })
 })
 
