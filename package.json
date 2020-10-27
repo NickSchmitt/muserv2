@@ -20,7 +20,8 @@
     "passport": "^0.4.1",
     "passport-spotify": "^1.1.0",
     "pg": "^8.4.2",
-    "sequelize": "^6.3.5"
+    "sequelize": "^6.3.5",
+    "session": "^0.1.0"
   },
   "repository": {
     "type": "git",
