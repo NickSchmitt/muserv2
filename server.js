@@ -91,29 +91,34 @@ app.get('/tracks/:id', function (req, res) {
       },
     })
     .then(function (spotifyResponse) {
-      db.comment.findAll().then((allComments) => {
-        console.log(allComments)
-        res.render('track', {
-          comments: allComments,
-          track: spotifyResponse.data,
+      db.comment
+        .findAll({ where: { trackId: spotifyResponse.data.id } })
+        .then((allComments) => {
+          // console.log(allComments)
+          res.render('track', {
+            comments: allComments,
+            track: spotifyResponse.data,
+            userId: req.user.id,
+          })
         })
-      })
     })
 })
 
 app.post('/track', (req, res) => {
-  db.user.findByPk(1).then(function (user) {
-    user
-      .createComment({
-        text: req.body.text,
-        userId: req.body.userId,
-        spotifyId: req.body.spotifyId,
-      })
-      .then(function (comment) {
-        console.log(comment.text)
-        // res.redirect('/tracks/:id')
-      })
-  })
+  db.user
+    .findOne({ where: { spotifyId: req.user.spotifyId } })
+    .then(function (user) {
+      user
+        .createComment({
+          text: req.body.text,
+          userId: req.body.userId,
+          trackId: req.body.spotifyId,
+        })
+        .then(function (comment) {
+          // console.log(comment.text)
+          res.redirect('back')
+        })
+    })
 })
 
 app.use('/auth', require('./routes/auth'))
