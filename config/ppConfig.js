@@ -57,8 +57,14 @@ passport.use(
             spotifyId: profile.id,
           },
         })
+        // db.user.something
         .then(function ([user, created]) {
-          return done(null, user) // returns info about the user
+          user.access = accessToken
+          user.refresh = refreshToken
+          user.save().then(function () {
+            return done(null, user)
+          })
+          // returns info about the user
         })
     }
   )

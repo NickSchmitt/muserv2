@@ -6,6 +6,8 @@ const passport = require('./config/ppConfig')
 const isLoggedIn = require('./middleware/isLoggedIn')
 const app = express()
 const flash = require('connect-flash')
+const axios = require('axios')
+const db = require('./models')
 
 app.set('view engine', 'ejs')
 
@@ -26,12 +28,12 @@ app.use(flash())
 app.use(passport.initialize())
 app.use(passport.session())
 
-// app.use((req, res, next) => {
-//   // before every route, attach the flash messages and current user to res.locals
-//   res.locals.alerts = req.flash()
-//   res.locals.currentUser = req.user
-//   next()
-// })
+app.use((req, res, next) => {
+  // before every route, attach the flash messages and current user to res.locals
+  // res.locals.alerts = req.flash()
+  res.locals.currentUser = req.user
+  next()
+})
 
 // app.get('/', (req, res) => {
 //   {
@@ -47,6 +49,71 @@ app.get('/', isLoggedIn, (req, res) => {
 
 app.get('/profile', isLoggedIn, (req, res) => {
   res.render('profile')
+})
+
+app.get('/results', (req, res) => {
+  const queryString = {
+    params: {
+      q: req.query.track,
+    },
+  }
+  axios
+    .get(
+      `https://api.spotify.com/v1/search?q=${queryString.params.q}&type=track&limit=1`,
+      {
+        headers: {
+          Authorization: `Bearer ${req.user.access}`,
+        },
+      }
+    )
+    .then(function (response) {
+      // console.log(response.data.tracks.items[0])
+      res.render('results', {
+        tracks: response.data.tracks.items,
+      })
+    })
+    .catch((error) => {
+      console.log(error)
+    })
+})
+
+app.get('/tracks/:id', function (req, res) {
+  const queryString = {
+    params: {
+      id: req.params.id,
+    },
+  }
+
+  axios
+    .get(`https://api.spotify.com/v1/tracks/${queryString.params.id}`, {
+      headers: {
+        Authorization: `Bearer ${req.user.access}`,
+      },
+    })
+    .then(function (spotifyResponse) {
+      db.comment.findAll().then((allComments) => {
+        console.log(allComments)
+        res.render('track', {
+          comments: allComments,
+          track: spotifyResponse.data,
+        })
+      })
+    })
+})
+
+app.post('/track', (req, res) => {
+  db.user.findByPk(1).then(function (user) {
+    user
+      .createComment({
+        text: req.body.text,
+        userId: req.body.userId,
+        spotifyId: req.body.spotifyId,
+      })
+      .then(function (comment) {
+        console.log(comment.text)
+        // res.redirect('/tracks/:id')
+      })
+  })
 })
 
 app.use('/auth', require('./routes/auth'))
