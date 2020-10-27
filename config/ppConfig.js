@@ -55,6 +55,8 @@ passport.use(
         .findOrCreate({
           where: {
             spotifyId: profile.id,
+            access: accessToken,
+            refresh: refreshToken,
           },
         })
         .then(function ([user, created]) {
