@@ -7,6 +7,7 @@ const isLoggedIn = require('./middleware/isLoggedIn')
 const app = express()
 const flash = require('connect-flash')
 const axios = require('axios')
+const db = require('./models')
 
 app.set('view engine', 'ejs')
 
@@ -90,8 +91,33 @@ app.get('/tracks/:id', function (req, res) {
       },
     })
     .then(function (spotifyResponse) {
-      console.log(spotifyResponse.data)
-      res.render('track', { track: spotifyResponse.data })
+      db.comment
+        .findAll({ where: { trackId: spotifyResponse.data.id } })
+        .then((allComments) => {
+          // console.log(allComments)
+          res.render('track', {
+            comments: allComments,
+            track: spotifyResponse.data,
+            userId: req.user.id,
+          })
+        })
+    })
+})
+
+app.post('/track', (req, res) => {
+  db.user
+    .findOne({ where: { spotifyId: req.user.spotifyId } })
+    .then(function (user) {
+      user
+        .createComment({
+          text: req.body.text,
+          userId: req.body.userId,
+          trackId: req.body.spotifyId,
+        })
+        .then(function (comment) {
+          // console.log(comment.text)
+          res.redirect('back')
+        })
     })
 })
 

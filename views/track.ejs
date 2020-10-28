@@ -10,3 +10,19 @@
   Your browser does not support the audio element.
   </audio>
 
+<div class="comment">
+  <form action="/track" method="POST">
+      <input type="text" name="text" class="white-text">
+      <input type="hidden" id="" name="userId" value="<%=`${userId}`%>">
+      <input type="hidden" id="" name="spotifyId" value="<%=`${track.id}`%>">
+      <button type="submit" class="btn white-text">add comment</button>
+  </form>
+</div>
+
+<% for( let i = 0; i < comments.length; i++ ) { %>
+  <div>
+    <p><%= comments[i].dataValues.text %></p>
+    <hr>
+  </div>
+<% } %>
+
