@@ -47,9 +47,18 @@ app.get('/', isLoggedIn, (req, res) => {
     }
 })
 
+
 app.get('/profile', isLoggedIn, (req, res) => {
-    res.render('profile')
+    db.comment.findAll().then((allComments) => {
+        res.render('profile', {
+            comments: allComments,
+        })
+    })
 })
+
+// app.get('/profile', isLoggedIn, (req, res) => {
+//     res.render('profile')
+// })
 
 app.get('/results', (req, res) => {
     const queryString = {
@@ -59,7 +68,7 @@ app.get('/results', (req, res) => {
     }
     axios
         .get(
-            `https://api.spotify.com/v1/search?q=${queryString.params.q}&type=track&limit=5`, {
+            `https://api.spotify.com/v1/search?q=${queryString.params.q}&type=track&limit=20`, {
                 headers: {
                     Authorization: `Bearer ${req.user.access}`,
                 },
@@ -119,6 +128,13 @@ app.post('/track', (req, res) => {
                 })
         })
 })
+
+
+app.get('/about', isLoggedIn, function(req, res) {
+    res.render('about')
+})
+
+
 
 app.get("/logout", function(req, res) {
     req.logout();
