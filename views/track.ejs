@@ -1,28 +1,33 @@
 <% // Render individual movie details here %>
-<% // This is how to do comments in EJS, by the way... %>
+    <% // This is how to do comments in EJS, by the way... %>
 
-<h1><%= track.name %></h1>
-<h2>by <%= track.artists[0].name %></h2>
-<img src="<%= track.album.images[0].url %>" alt="">
+        <h1>
+            <%= track.name %>
+        </h1>
+        <h2>by
+            <%= track.artists[0].name %>
+        </h2>
+        <img src="<%= track.album.images[0].url %>" alt="">
 
-<audio controls>
+        <audio controls>
     <source src="<%= track.preview_url %>">
   Your browser does not support the audio element.
   </audio>
 
-<div class="comment">
-  <form action="/track" method="POST">
-      <input type="text" name="text" class="white-text">
-      <input type="hidden" id="" name="userId" value="<%=`${userId}`%>">
-      <input type="hidden" id="" name="spotifyId" value="<%=`${track.id}`%>">
-      <button type="submit" class="btn white-text">add comment</button>
-  </form>
-</div>
+        <div class="comment">
+            <form action="/track" method="POST">
+                <input type="text" name="text" class="white-text">
+                <input type="hidden" id="" name="userId" value="<%=`${userId}`%>">
+                <input type="hidden" id="" name="spotifyId" value="<%=`${track.id}`%>">
+                <button type="submit" class="btn white-text">add comment</button>
+            </form>
+        </div>
 
-<% for( let i = 0; i < comments.length; i++ ) { %>
-  <div>
-    <p><%= comments[i].dataValues.text %></p>
-    <hr>
-  </div>
-<% } %>
-
+        <% for( let i = 0; i < comments.length; i++ ) { %>
+            <div>
+                <p>
+                    <%= comments[i].dataValues.text %>
+                </p>
+                <hr>
+            </div>
+            <% } %>
