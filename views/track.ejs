@@ -17,7 +17,6 @@
         <div class="comment">
             <form action="/track" method="POST">
                 <input type="text" name="text" class="white-text">
-                <input type="hidden" id="" name="userId" value="<%=`${userId}`%>">
                 <input type="hidden" id="" name="spotifyId" value="<%=`${track.id}`%>">
                 <button type="submit" class="btn white-text">add comment</button>
             </form>
@@ -25,6 +24,9 @@
 
         <% for( let i = 0; i < comments.length; i++ ) { %>
             <div>
+                <p>
+                    <%= comments[i].dataValues.userName %>
+                </p>
                 <p>
                     <%= comments[i].dataValues.text %>
                 </p>

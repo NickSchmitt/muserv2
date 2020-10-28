@@ -2,6 +2,24 @@
     Homepage</h2>
 
 <form action="/results" method="GET">
+    <select name="type" id="">
+        <option value="track" selected>Track</option>
+        <option value="artist">Artist</option>
+        <option value="album">Album</option>
+    </select>
+    <input type="hidden" name="limit" value="20">
     <input type="text" name="track" id="">
     <button type="submit">Submit</button>
 </form>
+
+<% for( let i = 0; i < comments.length; i++ ) { %>
+    <div>
+        <p>
+            <%= comments[i].dataValues.spotifyId %>
+        </p>
+        <p>
+            <%= comments[i].dataValues.text %>
+        </p>
+        <hr>
+    </div>
+    <% } %>
