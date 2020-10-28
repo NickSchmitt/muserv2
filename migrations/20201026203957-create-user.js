@@ -8,10 +8,13 @@ module.exports = {
         primaryKey: true,
         type: Sequelize.INTEGER,
       },
-      name: {
+      name: {q
         type: Sequelize.STRING,
       },
       spotifyId: {
+        type: Sequelize.STRING,
+      },
+      profilePic: {
         type: Sequelize.STRING,
       },
       access: {
