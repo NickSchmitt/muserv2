@@ -9,6 +9,7 @@ const flash = require('connect-flash')
 const axios = require('axios')
 const db = require('./models')
 const chalk = require('chalk')
+const methodOverride = require('method-override')
 
 app.set('view engine', 'ejs')
 
@@ -16,6 +17,7 @@ app.set('view engine', 'ejs')
 app.use(express.urlencoded({ extended: false }))
 app.use(express.static(__dirname + '/public'))
 app.use(layouts)
+app.use(methodOverride('_method'))
 
 app.use(
   session({
@@ -78,7 +80,8 @@ app.get('/results', (req, res) => {
       }
     )
     .then(function (response) {
-      console.log(chalk.red(response.data.artists.items))
+      // console.log(chalk.red(response.data.artists.items))
+      // res.send(response.data)
       res.render('results', {
         data: response.data,
         params: queryString.params,
@@ -177,6 +180,33 @@ app.post('/track', (req, res) => {
           // console.log(comment.text)
           res.redirect('back')
         })
+    })
+})
+
+// *** EDIT COMMENT
+// app.patch('/owner/:id', (req, res) => {
+//   const id = req.params.id;
+//   const updates = req.body.updates;
+//   db.owners.find({
+//     where: { id: id }
+//   })
+//     .then(owner => {
+//       return owner.updateAttributes(updates)
+//     })
+//     .then(updatedOwner => {
+//       res.json(updatedOwner);
+//     });
+// });
+
+// *** DELETE COMMENT
+app.delete('/comment/:id', (req, res) => {
+  const id = req.params.id
+  db.comment
+    .destroy({
+      where: { id: id },
+    })
+    .then((deletedComment) => {
+      res.redirect('back')
     })
 })
 
