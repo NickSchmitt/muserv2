@@ -18,11 +18,11 @@ app.use(express.static(__dirname + '/public'))
 app.use(layouts)
 
 app.use(
-  session({
-    secret: process.env.SESSION_SECRET,
-    resave: false,
-    saveUninitialized: true,
-  })
+    session({
+        secret: process.env.SESSION_SECRET,
+        resave: false,
+        saveUninitialized: true,
+    })
 )
 app.use(flash())
 
@@ -30,10 +30,10 @@ app.use(passport.initialize())
 app.use(passport.session())
 
 app.use((req, res, next) => {
-  // before every route, attach the flash messages and current user to res.locals
-  // res.locals.alerts = req.flash()
-  res.locals.currentUser = req.user
-  next()
+    // before every route, attach the flash messages and current user to res.locals
+    // res.locals.alerts = req.flash()
+    res.locals.currentUser = req.user
+    next()
 })
 
 // app.get('/', (req, res) => {
@@ -43,17 +43,23 @@ app.use((req, res, next) => {
 // })
 
 app.get('/', isLoggedIn, (req, res) => {
-  db.comment.findAll().then((allComments) => {
-    //   console.log(req.user)
-    res.render('index', {
-      comments: allComments,
-    })
-  })
+    {
+        res.render('index')
+    }
 })
 
+
 app.get('/profile', isLoggedIn, (req, res) => {
-  res.render('profile')
+    db.comment.findAll().then((allComments) => {
+        res.render('profile', {
+            comments: allComments,
+        })
+    })
 })
+
+// app.get('/profile', isLoggedIn, (req, res) => {
+//     res.render('profile')
+// })
 
 app.get('/results', (req, res) => {
   const queryString = {
@@ -172,22 +178,29 @@ app.post('/track', (req, res) => {
           // console.log(comment.text)
           res.redirect('back')
         })
-    })
 })
 
-app.get('/logout', function (req, res) {
-  req.logout()
-  res.redirect('/')
+
+app.get('/about', isLoggedIn, function(req, res) {
+    res.render('about')
 })
+
+
+
+app.get("/logout", function(req, res) {
+    req.logout();
+    res.redirect("/");
+});
+
 
 app.use('/auth', require('./routes/auth'))
 
 var server = app.listen(process.env.PORT || 3000, () =>
-  console.log(
-    `🎧You're listening to the smooth sounds of port ${
+    console.log(
+        `🎧You're listening to the smooth sounds of port ${
       process.env.PORT || 3000
     }🎧`
-  )
+    )
 )
 
 module.exports = server
