@@ -51,7 +51,6 @@ passport.use(
       callbackURL: 'http://localhost:3000/auth/spotify/callback',
     },
     function (accessToken, refreshToken, expires_in, profile, done) {
-      console.log(profile)
       db.user
         .findOrCreate({
           where: {
@@ -60,7 +59,9 @@ passport.use(
         })
         .then(function ([user, created]) {
           user.name = profile.displayName
-          user.profilePic = profile.photos[0]
+          if (profile.photos.length > 0) {
+            user.profilePic = profile.photos[0]
+          }
           user.access = accessToken
           user.refresh = refreshToken
           user.save().then(function () {

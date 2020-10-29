@@ -99,17 +99,61 @@ app.get('/tracks/:id', function (req, res) {
     })
     .then(function (spotifyResponse) {
       db.comment
-        .findAll({ where: { trackId: spotifyResponse.data.id } })
+        .findAll({
+          where: { trackId: spotifyResponse.data.id },
+          //   include: [db.user],
+        })
         .then((allComments) => {
+          //   console.log(allComments[0].user)
           //   console.log(req.user)
           res.render('track', {
             comments: allComments,
             track: spotifyResponse.data,
           })
         })
+        .catch((error) => {
+          console.log(error)
+        })
     })
 })
 
+app.get('/artists/:id', function (req, res) {
+  const queryString = {
+    params: {
+      id: req.params.id,
+    },
+  }
+
+  axios
+    .get(`https://api.spotify.com/v1/artists/${queryString.params.id}`, {
+      headers: {
+        Authorization: `Bearer ${req.user.access}`,
+      },
+    })
+    .then(function (artistResponse) {
+      axios
+        .get(
+          `https://api.spotify.com/v1/artists/${queryString.params.id}/top-tracks?country=US`,
+          {
+            headers: {
+              Authorization: `Bearer ${req.user.access}`,
+            },
+          }
+        )
+        .then(function (topTracksResponse) {
+          res.render('artist', {})
+        })
+      //   TODO: FIND ALL COMMENTS WHERE TRACKID'S SONG MATCHES ARTIST
+      // db.comment
+      //   .findAll({ where: { trackId: spotifyResponse.data.id } })
+      //   .then((allComments) => {
+      //     res.render('track', {
+      //       comments: allComments,
+      //       track: spotifyResponse.data,
+      //     })
+      //   })
+    })
+})
 // TODO: ADD A UNIQUE COMMENT TO A USER
 app.post('/track', (req, res) => {
   db.user
@@ -122,7 +166,7 @@ app.post('/track', (req, res) => {
           trackId: req.body.spotifyId,
         })
         .then(function (comment) {
-          // user.addComment(comment)
+          user.addComment(comment)
           // console.log(comment.text)
           res.redirect('back')
         })
