@@ -1,6 +1,26 @@
-hello
+<div class="container-0">
 
-<form action="/auth/spotify/" method="GET">
+    <div class="container-1">
+        <img src="https://imgur.com/wOPZVmI.png" alt="music not in comment box" class='img-1'>
+        <h1 class="h1Layouts">Muser</h1>
+    </div>
 
-  <input type="submit" value="Log In">
-</form>
+    <div class="container-2-form">
+        <form action="/auth/spotify/" method="GET" class="form">
+            <input type="submit" class="login-form" value="Sign in with Spotify">
+        </form>
+    </div>
+
+    <% for( let i = 0; i < comments.length; i++ ) { %>
+        <div>
+            <p>
+                <%= comments[i].dataValues.userName %>
+            </p>
+            <p>
+                <%= comments[i].dataValues.text %>
+            </p>
+            <hr>
+        </div>
+        <% } %>
+
+</div>

@@ -14,6 +14,9 @@ module.exports = {
       spotifyId: {
         type: Sequelize.STRING,
       },
+      profilePic: {
+        type: Sequelize.STRING,
+      },
       access: {
         type: Sequelize.STRING,
       },

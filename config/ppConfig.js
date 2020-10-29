@@ -57,8 +57,14 @@ passport.use(
             spotifyId: profile.id,
           },
         })
-        // db.user.something
         .then(function ([user, created]) {
+          user.name = profile.displayName
+          if (profile.photos.length > 0) {
+            user.profilePic = profile.photos[0]
+          } else {
+            // TODO: ADD URL TO MUSER DEFAULT ICON IN THE STRING BELOW
+            user.profilePic = ''
+          }
           user.access = accessToken
           user.refresh = refreshToken
           user.save().then(function () {

@@ -1,0 +1,18 @@
+<% // Render individual movie details here %>
+    <% // This is how to do comments in EJS, by the way... %>
+
+        <h1>
+            <%= artist.name %>
+        </h1>
+        <img src="<%= artist.images[1].url %>" alt="">
+        <ol>
+            <% for( let i = 0; i < tracks.length; i++ ) { %>
+                <li>
+                    <p> <a href="/tracks/<%=tracks[i].id%>"><%= tracks[i].name %></a>
+                        
+                    </p>
+                    <hr>
+                </li>
+                <% } %>
+        </ol>
+       

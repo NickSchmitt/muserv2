@@ -8,14 +8,14 @@ module.exports = (sequelize, DataTypes) => {
      * The `models/index` file will call this method automatically.
      */
     static associate(models) {
-      models.user.hasMany(models.comment);
-
+      models.user.hasMany(models.comment)
     }
   }
   user.init(
     {
       name: DataTypes.STRING,
       spotifyId: DataTypes.STRING,
+      profilePic: DataTypes.STRING,
       access: DataTypes.STRING,
       refresh: DataTypes.STRING,
     },

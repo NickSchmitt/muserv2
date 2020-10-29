@@ -1,8 +1,19 @@
-<h1>Results</h1>
-<% for( let i = 0; i < tracks.length; i++ ) { %>
-  <div class="movie">
-    <h3><%= `${tracks[i].name} by ${tracks[i].artists[0].name}` %></h3>
-    <a href="/tracks/<%= tracks[i].id %>">Read More</a>
-    <hr>
-  </div>
-<% } %>
+<h1>
+    Results</h1>
+<% for( let i = 0; i < parseInt(params.limit); i++ ) { %>
+    <div class="results">
+        <%if (params.type == "track") { %>
+            <h3>
+                <%= `${data.tracks.items[i].name} by ${data.tracks.items[i].artists[0].name}` %>
+            </h3>
+            <a href="/tracks/<%= data.tracks.items[i].id %>">Read More</a>
+
+        <%} else if (params.type == "artist") { %>
+            <h3>
+                <%= `${data.artists.items[i].name}` %>
+            </h3>
+            <a href="/artists/<%= data.artists.items[i].id %>">Read More</a>
+        <%} %>
+        <hr>
+    </div>
+    <% } %>

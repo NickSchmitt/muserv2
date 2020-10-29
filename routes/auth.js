@@ -9,7 +9,7 @@ router.get(
   '/spotify/callback',
   passport.authenticate('spotify', { failureRedirect: '/login' }),
   function (req, res) {
-    console.log('test test test')
+    // console.log('test test test')
     // Successful authentication, redirect home.
     res.redirect('/')
   }
@@ -49,7 +49,12 @@ router.get(
 // })
 
 router.get('/login', (req, res) => {
-  res.render('auth/login')
+  db.comment.findAll().then((allComments) => {
+    //   console.log(req.user)
+    res.render('auth/login', {
+      comments: allComments,
+    })
+  })
 })
 
 // router.post('/login', passport.authenticate('local', {
