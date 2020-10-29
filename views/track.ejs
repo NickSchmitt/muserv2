@@ -47,7 +47,7 @@
                 <%= track.artists[0].name %>
             </a>
         </h2>
-        <img src="<%= track.album.images[0].url %>" alt="">
+        <img src="<%= track.album.images[1].url %>" alt="">
 
         <audio controls>
     <source src="<%= track.preview_url %>">
@@ -55,6 +55,7 @@
   </audio>
 
         <div class="comment">
+            <!-- Comment POST form -->
             <form action="/track" method="POST">
                 <input type="text" name="text" class="white-text">
                 <input type="hidden" id="" name="spotifyId" value="<%=`${track.id}`%>">
@@ -77,6 +78,15 @@
                     <p>
                         <%= comments[i].dataValues.text %>
                     </p>
+
+                    <!-- Comment PUT Link -->
+                    <a href="/cryptids/edit/<%= comments[i].dataValues.id %>">Edit</a>
+
+                    <!-- Comment DELETE Form -->
+                    <form method="POST" action="/comment/<%= comments[i].dataValues.id %>/?_method=DELETE">
+                        <input type="submit" value="Delete">
+                    </form>
+                    
                     <hr>
                 </div>
                 <% } %>
