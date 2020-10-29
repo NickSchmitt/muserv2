@@ -39,24 +39,54 @@
 
 <!-- Do not touch this code  -->
 
-<h1> Results</h1>
-<% for( let i = 0; i < parseInt(params.limit); i++ ) { %>
-    <div class="results">
-        <%if (params.type == "track") { %>
-            <h3>
-                <%= `${data.tracks.items[i].name} by ${data.tracks.items[i].artists[0].name}` %>
-            </h3>
-            <a href="/tracks/<%= data.tracks.items[i].id %>">Read More</a>
+<h1 class="h12"> Results</h1>
+<div class="album py-5 bg-light">
+    <div class="container">
+        <div class="d-flex justify-content-center">
 
-            <%} else if (params.type == "artist") { %>
-                <h3>
-                    <%= `${data.artists.items[i].name}` %>
-                </h3>
-                <a href="/artists/<%= data.artists.items[i].id %>">Read More</a>
-                <%} %>
-                    <hr>
+
+            <div class="pre-scrollable">
+
+                <div class="col-md-20">
+                    <div class="card mb-4 box-shadow">
+                        <div class="card-body">
+                            <p class="card-text">
+                                <%if (params.type == "track") { %>
+                                    <% for( let i = 0; i < data.tracks.items.length; i++ ) { %>
+                                        <h3>
+                                            <%= `${data.tracks.items[i].name} by ${data.tracks.items[i].artists[0].name}` %>
+                                        </h3>
+                                        <a href="/tracks/<%= data.tracks.items[i].id %>">Read More</a>
+                                        <% } %>
+                                            <% } else if (params.type == "artist") { %>
+                                                <% for(let i =0; i< data.artists.items.length; i++) { %>
+                                                    <h3>
+                                                        <%= `${data.artists.items[i].name}` %>
+                                                    </h3>
+                                                    <a href="/artists/<%= data.artists.items[i].id %>">Read More</a>
+                                                    <hr>
+                                                    <%} %>
+                                                        <% } %>
+
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card mb-4 box-shadow">
+                    <!-- <img class="card-img-top" src="" alt="Card image cap"> -->
+                    <div class="card-body">
+                        <p class="card-text">
+                            Add Proto Slide Show
+                        </p>
+
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
-    <% } %>
+</div>
 
 
 
@@ -65,11 +95,10 @@
 
 
 
-
-        <!-- jQuery -->
-        <script src="//code.jquery.com/jquery.js"></script>
-        <!-- Bootstrap JavaScript -->
-        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
-        </body>
+<!-- jQuery -->
+<script src="//code.jquery.com/jquery.js"></script>
+<!-- Bootstrap JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
+</body>
 
 </html>
