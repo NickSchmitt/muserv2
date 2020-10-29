@@ -7,7 +7,7 @@ const db = require('../models')
  * user to an identifier (id)
  */
 passport.serializeUser((user, cb) => {
-  cb(null, user.id)
+    cb(null, user.id)
 })
 
 /*
@@ -15,12 +15,12 @@ passport.serializeUser((user, cb) => {
  * and looking it up in the database
  */
 passport.deserializeUser((id, cb) => {
-  db.user
-    .findByPk(id)
-    .then((user) => {
-      cb(null, user)
-    })
-    .catch(cb)
+    db.user
+        .findByPk(id)
+        .then((user) => {
+            cb(null, user)
+        })
+        .catch(cb)
 })
 
 /*
@@ -44,32 +44,31 @@ passport.deserializeUser((id, cb) => {
  * there's no user.
  */
 passport.use(
-  new SpotifyStrategy(
-    {
-      clientID: process.env.CLIENT_ID,
-      clientSecret: process.env.CLIENT_SECRET,
-      callbackURL: 'http://localhost:3000/auth/spotify/callback',
-    },
-    function (accessToken, refreshToken, expires_in, profile, done) {
-      console.log(profile)
-      db.user
-        .findOrCreate({
-          where: {
-            spotifyId: profile.id,
-          },
-        })
-        .then(function ([user, created]) {
-          user.name = profile.displayName
-          user.profilePic = profile.photos[0]
-          user.access = accessToken
-          user.refresh = refreshToken
-          user.save().then(function () {
-            return done(null, user)
-          })
-          // returns info about the user
-        })
-    }
-  )
+    new SpotifyStrategy({
+            clientID: process.env.CLIENT_ID,
+            clientSecret: process.env.CLIENT_SECRET,
+            callbackURL: 'http://localhost:3000/auth/spotify/callback',
+        },
+        function(accessToken, refreshToken, expires_in, profile, done) {
+            console.log(profile)
+            db.user
+                .findOrCreate({
+                    where: {
+                        spotifyId: profile.id,
+                    },
+                })
+                .then(function([user, created]) {
+                    user.name = profile.displayName
+                    user.profilePic = profile.photos[0]
+                    user.access = accessToken
+                    user.refresh = refreshToken
+                    user.save().then(function() {
+                            return done(null, user)
+                        })
+                        // returns info about the user
+                })
+        }
+    )
 )
 
 // export the Passport configuration from this module
