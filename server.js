@@ -78,7 +78,7 @@ app.get('/results', (req, res) => {
       }
     )
     .then(function (response) {
-      console.log(response.data)
+      console.log(chalk.red(response.data.artists.items))
       res.render('results', {
         data: response.data,
         params: queryString.params,
