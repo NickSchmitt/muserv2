@@ -55,4 +55,4 @@ This is where {
 - A social credit system to encourage positivity.
 
 
-##### These are the people we would like to thank, and these are the licenses we have, and the inspirations we would like to cite.
+##### Here we mention the people we would like to thank, the are the licenses we have, and the inspirations we would like to cite.
