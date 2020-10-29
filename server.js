@@ -141,7 +141,10 @@ app.get('/artists/:id', function (req, res) {
           }
         )
         .then(function (topTracksResponse) {
-          res.render('artist', {})
+          res.render('artist', {
+            artist: artistResponse.data,
+            tracks: topTracksResponse.data.tracks,
+          })
         })
       //   TODO: FIND ALL COMMENTS WHERE TRACKID'S SONG MATCHES ARTIST
       // db.comment
