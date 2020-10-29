@@ -184,19 +184,39 @@ app.post('/track', (req, res) => {
 })
 
 // *** EDIT COMMENT
-// app.patch('/owner/:id', (req, res) => {
-//   const id = req.params.id;
-//   const updates = req.body.updates;
-//   db.owners.find({
-//     where: { id: id }
-//   })
-//     .then(owner => {
-//       return owner.updateAttributes(updates)
-//     })
-//     .then(updatedOwner => {
-//       res.json(updatedOwner);
-//     });
-// });
+app.get('/edit/:id', (req, res) => {
+  const id = req.params.id
+  console.log(chalk.red(id))
+  db.comment
+    .findOne({
+      where: { id: id },
+    })
+    .then((comment) => {
+      res.render('editcomment', {
+        comment: comment,
+      })
+    })
+
+  // res.render('/editcomment', {
+  //   cryptid: cryptoData[req.params.idx],
+  //   cryptidId: req.params.idx,
+  //   title: 'Home',
+  // })
+})
+app.put('/comments/:id', (req, res) => {
+  const id = req.body.commentId
+
+  db.comment
+    .update(
+      { text: req.body.text },
+      {
+        where: { id: id },
+      }
+    )
+    .then((comment) => {
+      res.redirect('/')
+    })
+})
 
 // *** DELETE COMMENT
 app.delete('/comment/:id', (req, res) => {
