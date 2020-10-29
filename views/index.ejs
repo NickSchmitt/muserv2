@@ -37,6 +37,7 @@
 
 
 
+<<<<<<< HEAD
 <section class="jumbotron text-center">
     <div class="container">
         <p class="lead text-muted"> Search for you Favorite Song or Artist... </p>
@@ -69,3 +70,18 @@
 </body>
 
 </html>
+=======
+<h2>Homepage</h2>
+
+<div>
+    <form action="/results" method="GET">
+        <select name="type" id="">
+                <option value="track" selected>Track</option>
+                <option value="artist">Artist</option>
+            </select>
+            <input type="hidden" name="limit" value="20">
+            <input type="text" name="track" id="">
+            <button type="submit">Submit</button>
+        </form>
+    </div>
+>>>>>>> submain

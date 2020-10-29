@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 
+<<<<<<< HEAD
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -49,3 +50,20 @@
             </li>
             <% } %>
     </ol>
+=======
+        <h1>
+            <%= artist.name %>
+        </h1>
+        <img src="<%= artist.images[1].url %>" alt="">
+        <ol>
+            <% for( let i = 0; i < tracks.length; i++ ) { %>
+                <li>
+                    <img src="<%=tracks[i].album.images[2].url %>" alt=""><p> <a href="/tracks/<%=tracks[i].id%>"><%= tracks[i].name %></a>
+                        
+                    </p>
+                    <hr>
+                </li>
+                <% } %>
+        </ol>
+       
+>>>>>>> submain
