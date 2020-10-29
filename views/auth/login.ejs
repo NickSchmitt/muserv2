@@ -68,7 +68,17 @@
                             <!-- <img class="card-img-top" src="" alt="Card image cap"> -->
                             <div class="card-body">
                                 <p class="card-text">
-                                    LIVE FEED
+                                    <% for( let i = 0; i < comments.length; i++ ) { %>
+                                        <div>
+                                            <p>
+                                                <%= comments[i].dataValues.userName %>
+                                            </p>
+                                            <p>
+                                                <%= comments[i].dataValues.text %>
+                                            </p>
+                                            <hr>
+                                        </div>
+                                        <% } %>
                                 </p>
 
                             </div>
@@ -85,17 +95,6 @@
                     </div>
 
 
-                    <% for( let i = 0; i < comments.length; i++ ) { %>
-                        <div>
-                            <p>
-                                <%= comments[i].dataValues.userName %>
-                            </p>
-                            <p>
-                                <%= comments[i].dataValues.text %>
-                            </p>
-                            <hr>
-                        </div>
-                        <% } %>
 
                 </div>
             </div>
