@@ -43,7 +43,9 @@
             <%= track.name %>
         </h1>
         <h2>by
-            <%= track.artists[0].name %>
+            <a href="/artists/<%=track.artists[0].id%>">
+                <%= track.artists[0].name %>
+            </a>
         </h2>
         <img src="<%= track.album.images[0].url %>" alt="">
 
@@ -55,33 +57,39 @@
         <div class="comment">
             <form action="/track" method="POST">
                 <input type="text" name="text" class="white-text">
-                <input type="hidden" id="" name="userId" value="<%=`${userId}`%>">
                 <input type="hidden" id="" name="spotifyId" value="<%=`${track.id}`%>">
                 <button type="submit" class="btn white-text">add comment</button>
             </form>
+            <hr>
         </div>
 
 
 
 
 
-        <% for( let i = 0; i < comments.length; i++ ) { %>
-            <div>
-                <p>
-                    <%= comments[i].dataValues.text %>
-                </p>
-                <hr>
-            </div>
-            <% } %>
+        <% if (comments.length>0){ %>
+            <% for( let i = 0; i < comments.length; i++ ) { %>
+                <div>
+                    <p>
+                        <%= comments[i].dataValues.user.name %>
+                    </p>
+                    <img src="<%= comments[i].dataValues.user.profilePic %>" alt="">
+                    <p>
+                        <%= comments[i].dataValues.text %>
+                    </p>
+                    <hr>
+                </div>
+                <% } %>
+                    <%}%>
 
 
 
 
 
-                <!-- jQuery -->
-                <script src="//code.jquery.com/jquery.js"></script>
-                <!-- Bootstrap JavaScript -->
-                <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
-                </body>
+                        <!-- jQuery -->
+                        <script src="//code.jquery.com/jquery.js"></script>
+                        <!-- Bootstrap JavaScript -->
+                        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
+                        </body>
 
         </html>
