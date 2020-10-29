@@ -1,6 +1,22 @@
 <h2>Homepage</h2>
 
-<form action="/results" method="GET">
-    <input type="text" name="track" id="">
-    <button type="submit">Submit</button>
-</form>
+    <div>
+        <form action="/results" method="GET">
+            <select name="type" id="">
+                <option value="track" selected>Track</option>
+                <option value="artist">Artist</option>
+            </select>
+            <input type="hidden" name="limit" value="20">
+            <input type="text" name="track" id="">
+            <button type="submit">Submit</button>
+        </form>
+    </div>
+
+<% for( let i = 0; i < comments.length; i++ ) { %>
+    <div>
+        <p>
+            <%= comments[i].dataValues.text %>
+        </p>
+        <hr>
+    </div>
+    <% } %>
