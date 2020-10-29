@@ -62,122 +62,122 @@ app.get('/profile', isLoggedIn, (req, res) => {
 // })
 
 app.get('/results', (req, res) => {
-  const queryString = {
-    params: {
-      q: req.query.track,
-      type: req.query.type,
-      limit: req.query.limit,
-    },
-  }
-  axios
-    .get(
-      `https://api.spotify.com/v1/search?q=${queryString.params.q}&type=${queryString.params.type}&limit=${queryString.params.limit}`,
-      {
-        headers: {
-          Authorization: `Bearer ${req.user.access}`,
+    const queryString = {
+        params: {
+            q: req.query.track,
+            type: req.query.type,
+            limit: req.query.limit,
         },
-      }
-    )
-    .then(function (response) {
-      console.log(response.data)
-      res.render('results', {
-        data: response.data,
-        params: queryString.params,
-      })
-    })
-    .catch((error) => {
-      console.log(error)
-    })
-})
-
-app.get('/tracks/:id', function (req, res) {
-  const queryString = {
-    params: {
-      id: req.params.id,
-    },
-  }
-
-  axios
-    .get(`https://api.spotify.com/v1/tracks/${queryString.params.id}`, {
-      headers: {
-        Authorization: `Bearer ${req.user.access}`,
-      },
-    })
-    .then(function (spotifyResponse) {
-      db.comment
-        .findAll({
-          where: { trackId: spotifyResponse.data.id },
-          include: [db.user],
-        })
-        .then((allComments) => {
-          // res.send(allComments)
-          res.render('track', {
-            comments: allComments,
-            track: spotifyResponse.data,
-          })
+    }
+    axios
+        .get(
+            `https://api.spotify.com/v1/search?q=${queryString.params.q}&type=${queryString.params.type}&limit=${queryString.params.limit}`, {
+                headers: {
+                    Authorization: `Bearer ${req.user.access}`,
+                },
+            }
+        )
+        .then(function(response) {
+            console.log(response.data)
+            res.render('results', {
+                data: response.data,
+                params: queryString.params,
+            })
         })
         .catch((error) => {
-          console.log(error)
+            console.log(error)
         })
-    })
 })
 
-app.get('/artists/:id', function (req, res) {
-  const queryString = {
-    params: {
-      id: req.params.id,
-    },
-  }
+app.get('/tracks/:id', function(req, res) {
+    const queryString = {
+        params: {
+            id: req.params.id,
+        },
+    }
 
-  axios
-    .get(`https://api.spotify.com/v1/artists/${queryString.params.id}`, {
-      headers: {
-        Authorization: `Bearer ${req.user.access}`,
-      },
-    })
-    .then(function (artistResponse) {
-      axios
-        .get(
-          `https://api.spotify.com/v1/artists/${queryString.params.id}/top-tracks?country=US`,
-          {
+    axios
+        .get(`https://api.spotify.com/v1/tracks/${queryString.params.id}`, {
             headers: {
-              Authorization: `Bearer ${req.user.access}`,
+                Authorization: `Bearer ${req.user.access}`,
             },
-          }
-        )
-        .then(function (topTracksResponse) {
-          res.render('artist', {
-            artist: artistResponse.data,
-            tracks: topTracksResponse.data.tracks,
-          })
         })
-      //   TODO: FIND ALL COMMENTS WHERE TRACKID'S SONG MATCHES ARTIST
-      // db.comment
-      //   .findAll({ where: { trackId: spotifyResponse.data.id } })
-      //   .then((allComments) => {
-      //     res.render('track', {
-      //       comments: allComments,
-      //       track: spotifyResponse.data,
-      //     })
-      //   })
-    })
+        .then(function(spotifyResponse) {
+            db.comment
+                .findAll({
+                    where: { trackId: spotifyResponse.data.id },
+                    include: [db.user],
+                })
+                .then((allComments) => {
+                    // res.send(allComments)
+                    res.render('track', {
+                        comments: allComments,
+                        track: spotifyResponse.data,
+                    })
+                })
+                .catch((error) => {
+                    console.log(error)
+                })
+        })
 })
-// TODO: ADD A UNIQUE COMMENT TO A USER
+
+app.get('/artists/:id', function(req, res) {
+        const queryString = {
+            params: {
+                id: req.params.id,
+            },
+        }
+
+        axios
+            .get(`https://api.spotify.com/v1/artists/${queryString.params.id}`, {
+                headers: {
+                    Authorization: `Bearer ${req.user.access}`,
+                },
+            })
+            .then(function(artistResponse) {
+                axios
+                    .get(
+                        `https://api.spotify.com/v1/artists/${queryString.params.id}/top-tracks?country=US`, {
+                            headers: {
+                                Authorization: `Bearer ${req.user.access}`,
+                            },
+                        }
+                    )
+                    .then(function(topTracksResponse) {
+                        res.render('artist', {
+                            artist: artistResponse.data,
+                            tracks: topTracksResponse.data.tracks,
+                        })
+                    })
+                    //   TODO: FIND ALL COMMENTS WHERE TRACKID'S SONG MATCHES ARTIST
+                    // db.comment
+                    //   .findAll({ where: { trackId: spotifyResponse.data.id } })
+                    //   .then((allComments) => {
+                    //     res.render('track', {
+                    //       comments: allComments,
+                    //       track: spotifyResponse.data,
+                    //     })
+                    //   })
+            })
+    })
+    // TODO: ADD A UNIQUE COMMENT TO A USER
 app.post('/track', (req, res) => {
-  db.user
-    .findOne({ where: { spotifyId: req.user.spotifyId } })
-    .then(function (user) {
-      user
-        .createComment({
-          text: req.body.text,
-          userId: req.user.id,
-          trackId: req.body.spotifyId,
+    db.user
+        .findOne({ where: { spotifyId: req.user.spotifyId } })
+        .then(function(user) {
+            user
+                .createComment({
+                    text: req.body.text,
+                    userId: req.user.id,
+                    trackId: req.body.spotifyId,
+                })
+                .then(function(comment) {
+                    user.addComment(comment)
+                        // console.log(comment.text)
+                    res.redirect('back')
+                })
         })
-        .then(function (comment) {
-          user.addComment(comment)
-          // console.log(comment.text)
-          res.redirect('back')
-        })
+
 })
 
 

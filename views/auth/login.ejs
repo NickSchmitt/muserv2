@@ -1,26 +1,135 @@
-<div class="container-0">
+<!DOCTYPE html>
+<html lang="en">
 
-    <div class="container-1">
-        <img src="https://imgur.com/wOPZVmI.png" alt="music not in comment box" class='img-1'>
-        <h1 class="h1Layouts">Muser</h1>
-    </div>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Muser</title>
 
-    <div class="container-2-form">
-        <form action="/auth/spotify/" method="GET" class="form">
-            <input type="submit" class="login-form" value="Sign in with Spotify">
-        </form>
-    </div>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous">
+    <link rel="stylesheet" href="/css/style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Comfortaa&display=swap" rel="stylesheet">
+    <script defer src="/public/js/main.js"></script>
+</head>
 
-    <% for( let i = 0; i < comments.length; i++ ) { %>
-        <div>
-            <p>
-                <%= comments[i].dataValues.userName %>
+<body>
+    <header>
+        <nav class="navbar navbar-expand-lg navbar-light navbar-fixed-top" style="background-color: #9ddad2">
+            <a class="navbar-brand" href="#"> <img src="/img/Screen_Shot_2020-10-28_at_10.21.37_PM-removebg-preview.png" height="25"> </a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+              <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ml-auto">
+                    <li class="nav-item active">
+                        <a class="nav-link" href="/">Home <span class="sr-only">(current)</span></a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/about">About</a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link" href="/logout">About</a>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+    </header>
+
+    <main role="main">
+
+        <section class="jumbotron text-center">
+            <div class="container">
+                <h1 class="jumbotron-heading"> Experience Music Together</h1>
+                <p class="lead text-muted"> Now you can share your thoughts about music you love with the world - Muser it! </p>
+                <!-- <p>
+                    <a href="#" class="btn btn-primary my-2">Sign in with Spotify</a>
+                </p> -->
+
+                <div class="container-2-form">
+                    <form action="/auth/spotify/" method="GET" class="form">
+                        <input type="submit" class="login-form" value="Sign in with Spotify">
+                    </form>
+                </div>
+            </div>
+        </section>
+
+        <div class="album py-5 bg-light">
+            <div class="container">
+
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="card mb-4 box-shadow">
+                            <img class="card-img-top" src="/img/diversegroup.jpg" alt="Card image cap">
+                            <div class="card-body">
+                                <p class="card-text"> Share your thoughts about your favorite songs to a global community with Muser's live comment feed! </p>
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="card mb-4 box-shadow">
+                            <!-- <img class="card-img-top" src="" alt="Card image cap"> -->
+                            <div class="card-body">
+                                <p class="card-text">
+                                    LIVE FEED
+                                </p>
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="card mb-4 box-shadow">
+                            <img class="card-img-top" src="/img/spotify-909238494.jpg" alt="Card image cap">
+                            <div class="card-body">
+                                <p class="card-text"> Muser has thousands od songs that you can share your insight on and is powered by Spotify&copy;</p>
+
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <% for( let i = 0; i < comments.length; i++ ) { %>
+                        <div>
+                            <p>
+                                <%= comments[i].dataValues.userName %>
+                            </p>
+                            <p>
+                                <%= comments[i].dataValues.text %>
+                            </p>
+                            <hr>
+                        </div>
+                        <% } %>
+
+                </div>
+
+
+
+    </main>
+
+    <footer class="text-muted">
+        <div class="container">
+            <p class="float-right">
+                <a href="#">Back to top</a>
             </p>
-            <p>
-                <%= comments[i].dataValues.text %>
-            </p>
-            <hr>
+            <p>This web app was developed maintained by Nick, Bevon, And Edmund in association with BVN &copy; For more information about Muser please</p>
+            <a href="/about">Contact Us.</p>
         </div>
-        <% } %>
+    </footer>
+    <!-- <div class="container-0">
 
-</div>
+    
+
+  
+
+</div> -->
+
+
+
+    <!-- jQuery -->
+    <script src="//code.jquery.com/jquery.js"></script>
+    <!-- Bootstrap JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
+</body>
+
+</html>
