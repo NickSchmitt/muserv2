@@ -13,13 +13,7 @@
                 <%= `${data.artists.items[i].name}` %>
             </h3>
             <a href="/artists/<%= data.artists.items[i].id %>">Read More</a>
-        <%} else if (params.type == "album") { %>
-            <h3>
-                <%= `${data.albums.items[i].name}` %>
-            </h3>
-            <a href="/albums/<%= data.albums.items[i].id %>">Read More</a>
-        <% } %>
-        
+        <%} %>
         <hr>
     </div>
     <% } %>

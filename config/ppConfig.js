@@ -61,6 +61,9 @@ passport.use(
           user.name = profile.displayName
           if (profile.photos.length > 0) {
             user.profilePic = profile.photos[0]
+          } else {
+            // TODO: ADD URL TO MUSER DEFAULT ICON IN THE STRING BELOW
+            user.profilePic = ''
           }
           user.access = accessToken
           user.refresh = refreshToken

@@ -101,11 +101,10 @@ app.get('/tracks/:id', function (req, res) {
       db.comment
         .findAll({
           where: { trackId: spotifyResponse.data.id },
-          //   include: [db.user],
+          include: [db.user],
         })
         .then((allComments) => {
-          //   console.log(allComments[0].user)
-          //   console.log(req.user)
+          // res.send(allComments)
           res.render('track', {
             comments: allComments,
             track: spotifyResponse.data,

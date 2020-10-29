@@ -20,13 +20,15 @@
                 <input type="hidden" id="" name="spotifyId" value="<%=`${track.id}`%>">
                 <button type="submit" class="btn white-text">add comment</button>
             </form>
+            <hr>
         </div>
         <% if (comments.length>0){ %>
             <% for( let i = 0; i < comments.length; i++ ) { %>
                 <div>
                     <p>
-                        <%= //comments[i].dataValues %>
+                        <%= comments[i].dataValues.user.name %>
                     </p>
+                    <img src="<%= comments[i].dataValues.user.profilePic %>" alt="">
                     <p>
                         <%= comments[i].dataValues.text %>
                     </p>
