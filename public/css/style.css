@@ -13,6 +13,28 @@
     margin-left: 24rem;
 }
 
+.profile-pic {
+    height: 150px;
+    width: 150px;
+    border-radius: 5px;
+}
+
+.userPic {
+    height: 60px;
+    width: 60px;
+    border-radius: 5px;
+}
+
+.userName {
+    font-size: 10px;
+}
+
+.del-edit {
+    display: flex;
+    flex-direction: ;
+    margin-bottom: auto;
+}
+
 .login-form {
     background-color: #9ddad2;
     border: none;
@@ -54,7 +76,7 @@
 
 .jumbotron .container {
     max-width: 40rem;
-    background: rgba(0, 0, 0, .05);
+    background: rgba(0, 0, 0, .09);
     padding: 2rem;
     border-radius: 5px;
 }
@@ -95,17 +117,14 @@ footer p {
 .btn-primary:active,
 .btn-primary:visited {
     background-color: #9ddad2 !important;
-} */
+}
 
+*/
 
-/*  
-.img-1 {
+.muser {
     animation: shake 2s;
     animation-iteration-count: 5s;
     margin-top: 2.5%;
-    width: 60px;
-    height: 60px;
-    border-radius: 50%;
 }
 
 @keyframes shake {
