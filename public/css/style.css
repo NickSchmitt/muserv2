@@ -6,17 +6,34 @@
 
 :root {
     --jumbotron-padding-y: 3rem;
-    color: black;
+}
+
+.body-results {
+    background-color: #b0cce8;
 }
 
 .h12 {
-    margin-left: 24rem;
+    margin-top: 5rem;
+    margin-left: 15rem;
 }
 
-.profile-pic {
-    height: 150px;
-    width: 150px;
+.album-pic {
+    height: 300px;
+    width: 300px;
     border-radius: 5px;
+}
+
+.album-pic:hover {
+    animation: animateHeart 1.2s infinite;
+}
+
+@keyframes animateHeart {
+    50% {
+        transform: rotate(-45deg) scale(0.8);
+    }
+    100% {
+        transform: rotate(45deg) scale(0.8);
+    }
 }
 
 .userPic {
@@ -31,11 +48,12 @@
 
 .del-edit {
     display: flex;
-    margin-bottom: auto;
+    height: 15px;
+    width: 15px;
 }
 
 .login-form {
-    background-color: #9ddad2;
+    background-color: #b0cce8;
     border: none;
     color: white;
     padding: 15px 32px;
@@ -49,6 +67,9 @@
 .login-form:hover {
     box-shadow: 0 8px 8px 0 rgba(0, 0, 0, 0.24), 0 8px 8px 0 rgba(0, 0, 0, 0.19);
     transition: all ease 0.3s;
+    transition: all 0.5s ease;
+    background: black;
+    padding: 20px;
 }
 
 .jumbotron {
@@ -70,13 +91,12 @@
 }
 
 .jumbotron-heading {
-    font-weight: 300;
+    font-weight: 400;
 }
 
 .jumbotron .container {
     max-width: 40rem;
-    background: rgba(0, 0, 0, .09);
-    padding: 2rem;
+    padding: 3rem;
     border-radius: 5px;
 }
 
@@ -100,7 +120,7 @@ footer p {
 }
 
 .index-button {
-    background-color: #9ddad2;
+    background-color: #b0cce8;
     border: none;
     color: white;
     text-align: center;
@@ -110,15 +130,11 @@ footer p {
     border-radius: 5px;
 }
 
-
-/* .btn-primary,
-.btn-primary:hover,
-.btn-primary:active,
-.btn-primary:visited {
-    background-color: #9ddad2 !important;
+.index-button:hover {
+    transition: all 0.5s ease;
+    background: black;
+    padding: 6px;
 }
-
-*/
 
 .muser {
     animation: shake 2s;
@@ -147,5 +163,138 @@ footer p {
     }
     100% {
         transform: translate(1px, -2px) rotate(-1deg);
+    }
+}
+
+
+/* ..... */
+
+.mySlides {
+    display: none
+}
+
+img {
+    vertical-align: middle;
+}
+
+
+/* Slideshow container */
+
+.slideshow-container {
+    max-width: 1000px;
+    position: relative;
+    margin: auto;
+}
+
+
+/* Next & previous buttons */
+
+.prev,
+.next {
+    cursor: pointer;
+    position: absolute;
+    top: 50%;
+    width: auto;
+    padding: 16px;
+    margin-top: -22px;
+    color: white;
+    font-weight: bold;
+    font-size: 18px;
+    transition: 0.6s ease;
+    border-radius: 0 3px 3px 0;
+    user-select: none;
+}
+
+
+/* Position the "next button" to the right */
+
+.next {
+    right: 0;
+    border-radius: 3px 0 0 3px;
+}
+
+
+/* On hover, add a black background color with a little bit see-through */
+
+.prev:hover,
+.next:hover {
+    background-color: grey;
+    border-radius: 50%;
+}
+
+
+/* Caption text */
+
+.text {
+    color: #f2f2f2;
+    font-size: 15px;
+    padding: 8px 12px;
+    position: absolute;
+    bottom: 8px;
+    width: 100%;
+    text-align: center;
+}
+
+
+/* Number text (1/3 etc) */
+
+.numbertext {
+    color: #f2f2f2;
+    font-size: 12px;
+    padding: 8px 12px;
+    position: absolute;
+    top: 0;
+}
+
+
+/* The dots/bullets/indicators */
+
+.dot {
+    cursor: pointer;
+    height: 15px;
+    width: 15px;
+    margin: 0 2px;
+    background-color: #bbb;
+    border-radius: 50%;
+    display: inline-block;
+    transition: background-color 0.6s ease;
+}
+
+
+/* Fading animation */
+
+.fade {
+    -webkit-animation-name: fade;
+    -webkit-animation-duration: 3s;
+    animation-name: fade;
+    animation-duration: 10s;
+}
+
+@-webkit-keyframes fade {
+    from {
+        opacity: .4
+    }
+    to {
+        opacity: 1
+    }
+}
+
+@keyframes fade {
+    from {
+        opacity: .4
+    }
+    to {
+        opacity: 1
+    }
+}
+
+
+/* On smaller screens, decrease text size */
+
+@media only screen and (max-width: 300px) {
+    .prev,
+    .next,
+    .text {
+        font-size: 11px
     }
 }

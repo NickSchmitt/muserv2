@@ -1,145 +1,83 @@
-<% // Render individual movie details here %>
-    <% // This is how to do comments in EJS, by the way... %>
-        <!DOCTYPE html>
-        <html lang="en">
+<!DOCTYPE html>
+<html lang="en">
 
-        <head>
-            <meta charset="utf-8">
-            <meta name="viewport" content="width=device-width, initial-scale=1">
-            <title>Muser</title>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Muser</title>
 
-            <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous">
-            <link rel="stylesheet" href="/css/style.css">
-            <link href="https://fonts.googleapis.com/css2?family=Comfortaa&display=swap" rel="stylesheet">
-            <script defer src="/js/main.js"></script>
-        </head>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous">
+    <link rel="stylesheet" href="/css/style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Comfortaa&display=swap" rel="stylesheet">
+    <script defer src="/js/main.js"></script>
+</head>
 
+<section class="jumbotron text-center ">
+    <div class="container ">
+        <p class="lead text-muted ">
+            <h3 class=" trackName ">
+                <%= track.name %>
+            </h3>
+            <h2>by
+                <a href="/artists/<%=track.artists[0].id%>">
+                    <%= track.artists[0].name %>
+                </a>
+            </h2>
+            <img src="<%= track.album.images[1].url %>" class="album-pic" alt="">
 
-
-
-
-
-
-        <section class="jumbotron text-center">
-            <div class="container">
-
-                <p class="lead text-muted">
-                    <h1 class=" trackName">
-                        <%= track.name %>
-                    </h1>
-                    <h2>by
-                        <a href="/artists/<%=track.artists[0].id%>">
-                            <%= track.artists[0].name %>
-                        </a>
-                    </h2>
-                    <img src="<%= track.album.images[1].url %>" class="profile-pic" alt="">
-
-                    <audio controls>
-            <source src="<%= track.preview_url %>">
-          Your browser does not support the audio element.
-          </audio>
-                </p>
-                <!-- <p>
-                    <a href="#" class="btn btn-primary my-2">Sign in with Spotify</a>
-                </p> -->
-
-                <div class="comment">
-                    <!-- Comment POST form -->
-                    <form action="/track" method="POST">
-                        <input type="text" name="text" class="white-text">
-                        <input type="hidden" id="" name="spotifyId" value="<%=`${track.id}`%>">
-                        <button type="submit" class="btn white-text">add comment</button>
+            <audio controls>
+                                <source src="<%= track.preview_url %>">
+                                </audio>
+        </p>
+        <div class="comment">
+            <!-- Comment POST form -->
+            <form action="/track" method="POST">
+                <input type="text" name="text" class="white-text">
+                <input type="hidden" id="" name="spotifyId" value="<%=`${track.id}`%>">
+                <button type="submit" class="btn white-text">add comment</button>
+            </form>
+            <hr>
+        </div>
 
 
-                        <h1>
-                            <%= track.name %>
-                        </h1>
-                        <h2>by
-                            <a href="/artists/<%=track.artists[0].id%>">
-                                <%= track.artists[0].name %>
-                            </a>
-                        </h2>
-                        <img src="<%= track.album.images[1].url %>" alt="">
+        <div class="pre-scrollable" id="scroll-box" style="background-color: white;">
+            <% if (comments.length>0){ %>
+                <% for( let i = 0; i < comments.length; i++ ) { %>
+                    <div>
+                        <div class="d-flex justify-content-start">
 
-                        <audio controls>
-    <source src="<%= track.preview_url %>">
-  Your browser does not support the audio element.
-  </audio>
+                            <p class="userName">
+                                <%= comments[i].dataValues.user.name %>
+                            </p>
+                        </div>
+                        <div class="d-flex justify-content-start">
 
-                        <div class="comment">
-                            <!-- Comment POST form -->
-                            <form action="/track" method="POST">
-                                <input type="text" name="text" class="white-text">
-                                <input type="hidden" id="" name="spotifyId" value="<%=`${track.id}`%>">
-                                <button type="submit" class="btn white-text">add comment</button>
+                            <img src="<%= comments[i].dataValues.user.profilePic %>" class="userPic" alt="">
+                        </div>
+                        <div class="float-right">
+                            <p>
+                                <%= comments[i].dataValues.text %>
+                            </p>
+                        </div>
+                        <div class="del-edit">
+                            <!-- Comment PUT Link -->
+                            <a href="/cryptids/edit/<%= comments[i].dataValues.id %>">Edit</a>
+
+                            <!-- Comment DELETE Form -->
+                            <form method="POST" action="/comment/<%= comments[i].dataValues.id %>/?_method=DELETE">
+                                <input type="submit" value="Delete">
                             </form>
-                            <hr>
                         </div>
 
+                        <hr>
+                    </div>
+                    <% } %>
+                        <%}%>
 
+        </div>
+    </div>
 
-
-
-                        <% if (comments.length>0){ %>
-                            <% for( let i = 0; i < comments.length; i++ ) { %>
-                                <div>
-                                    <p>
-                                        <%= comments[i].dataValues.user.name %>
-                                    </p>
-                                    <img src="<%= comments[i].dataValues.user.profilePic %>" alt="">
-                                    <p>
-                                        <%= comments[i].dataValues.text %>
-                                    </p>
-
-                                    <!-- Comment EDIT BUTTON -->
-                                    <form method="GET" action="/edit/<%= comments[i].dataValues.id %>">
-                                        <input type="submit" value="Edit">
-                                    </form>
-                                    <!-- Comment DELETE Form -->
-                                    <form method="POST" action="/comment/<%= comments[i].dataValues.id %>/?_method=DELETE">
-                                        <input type="submit" value="Delete">
-                                    </form>
-                                    <hr>
-                                </div>
-                                <div class="pre-scrollable">
-
-
-                                    <% if (comments.length>0){ %>
-                                        <% for( let i = 0; i < comments.length; i++ ) { %>
-                                            <div>
-                                                <div class="float-right">
-                                                    <p class="userName">
-                                                        <%= comments[i].dataValues.user.name %>
-                                                    </p>
-                                                </div>
-                                                <div class="float-left">
-
-                                                    <img src="<%= comments[i].dataValues.user.profilePic %>" class="userPic" alt="">
-                                                </div>
-                                                <div class="float-center">
-                                                    <p>
-                                                        <%= comments[i].dataValues.text %>
-                                                    </p>
-                                                </div>
-                                                <div class="del-edit">
-                                                    <!-- Comment PUT Link -->
-                                                    <a href="/cryptids/edit/<%= comments[i].dataValues.id %>">Edit</a>
-
-                                                    <!-- Comment DELETE Form -->
-                                                    <form method="POST" action="/comment/<%= comments[i].dataValues.id %>/?_method=DELETE">
-                                                        <input type="submit" value="Delete">
-                                                    </form>
-                                                </div>
-
-                                                <hr>
-                                            </div>
-                                            <% } %>
-                                                <%}%>
-
-                                </div>
-                </div>
-
-        </section>
+</section>
 
 
 
@@ -152,10 +90,10 @@
 
 
 
-        <!-- jQuery -->
-        <script src="//code.jquery.com/jquery.js"></script>
-        <!-- Bootstrap JavaScript -->
-        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
-        </body>
+<!-- jQuery -->
+<script src="//code.jquery.com/jquery.js"></script>
+<!-- Bootstrap JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
+</body>
 
-        </html>
+</html>
