@@ -1,20 +1,42 @@
-<% // Render individual movie details here %>
-    <% // This is how to do comments in EJS, by the way... %>
+<!DOCTYPE html>
+<html lang="en">
 
-        <h1>
-            <%= track.name %>
-        </h1>
-        <h2>by
-            <a href="/artists/<%=track.artists[0].id%>"><%= track.artists[0].name %></a>
-        </h2>
-        <img src="<%= track.album.images[0].url %>" alt="">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Muser</title>
 
-        <audio controls>
-    <source src="<%= track.preview_url %>">
-  Your browser does not support the audio element.
-  </audio>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous">
+    <link rel="stylesheet" href="/css/style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Comfortaa&display=swap" rel="stylesheet">
+    <script defer src="/js/main.js"></script>
+</head>
 
+
+<!--grabs relevant spotify data and renders on screen   -->
+
+
+<section class="jumbotron text-center ">
+    <div class="container ">
+        <p class="lead text-muted ">
+            <h3 class=" trackName ">
+                <%= track.name %>
+            </h3>
+            <h2>by
+                <a href="/artists/<%=track.artists[0].id%>">
+                    <%= track.artists[0].name %>
+                </a>
+            </h2>
+            <img src="<%= track.album.images[1].url %>" class="album-pic" alt="">
+
+            <audio controls>
+                                <source src="<%= track.preview_url %>">
+                                </audio>
+        </p>
         <div class="comment">
+
+
+            <!-- Comment POST form -->
             <form action="/track" method="POST">
                 <input type="text" name="text" class="white-text">
                 <input type="hidden" id="" name="spotifyId" value="<%=`${track.id}`%>">
@@ -22,18 +44,63 @@
             </form>
             <hr>
         </div>
-        <% if (comments.length>0){ %>
-            <% for( let i = 0; i < comments.length; i++ ) { %>
-                <div>
-                    <p>
-                        <%= comments[i].dataValues.user.name %>
-                    </p>
-                    <img src="<%= comments[i].dataValues.user.profilePic %>" alt="">
-                    <p>
-                        <%= comments[i].dataValues.text %>
-                    </p>
-                    <hr>
-                </div>
-            <% } %>
-        <%}%>
-        
+
+        <!-- creates a scrolled list with selected data fields  -->
+
+        <div class="pre-scrollable" id="scroll-box" style="background-color: white;">
+            <% if (comments.length>0){ %>
+                <% for( let i = 0; i < comments.length; i++ ) { %>
+                    <div>
+                        <div class="d-flex justify-content-start">
+
+                            <p class="userName">
+                                <%= comments[i].dataValues.user.name %>
+                            </p>
+                        </div>
+                        <div class="d-flex justify-content-start">
+
+                            <img src="<%= comments[i].dataValues.user.profilePic %>" class="userPic" alt="">
+                        </div>
+                        <div class="float-right">
+                            <p>
+                                <%= comments[i].dataValues.text %>
+                            </p>
+                        </div>
+                        <div class="del-edit">
+                            <!-- Comment PUT Link -->
+                            <a href="/cryptids/edit/<%= comments[i].dataValues.id %>">Edit</a>
+
+                            <!-- Comment DELETE Form -->
+                            <form method="POST" action="/comment/<%= comments[i].dataValues.id %>/?_method=DELETE">
+                                <input type="submit" value="Delete">
+                            </form>
+                        </div>
+
+                        <hr>
+                    </div>
+                    <% } %>
+                        <%}%>
+
+        </div>
+    </div>
+
+</section>
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- jQuery -->
+<script src="//code.jquery.com/jquery.js"></script>
+<!-- Bootstrap JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
+</body>
+
+</html>

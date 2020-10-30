@@ -11,29 +11,34 @@
     <link href="https://fonts.googleapis.com/css2?family=Comfortaa&display=swap" rel="stylesheet">
     <script defer src="/public/js/main.js"></script>
 </head>
+<br>
+<br>
 
 
-
-
-
-
-<section class="jumbotron text-center">
+<section>
     <div class="container">
-        <p class="lead text-muted"> Search for Your Favorite Song or Artist... </p>
-
-        <div>
-            <form action="/results" method="GET">
-                <select name="type" id="">
-                        <option value="track" selected>Track</option>
-                        <option value="artist">Artist</option>
-                    </select>
-                <input type="hidden" name="limit" value="20">
-                <input type="text" name="track" id="">
-                <button class="index-button" type="submit">Search</button>
+        <h1 class="jumbotron-heading"> Reddit threads and Youtube comment sections can be great places to discuss your favorite songs with others, but sometimes it can be difficult to find the songs you want to discuss; the scope of these platforms is too large to serve such a specific
+            purpose well. This inconvenience inspired the creation of Muser, a discussion platform for a global community of music enthusiasts. Using your Spotify credentials, you can preview every song from the Spotify library, and comment on those songs.</h1>
+        <div class="container-2-form">
+            <form action="/auth/spotify/" method="GET" class="form">
+                <input type="submit" class="login-form" value="Sign in with Spotify">
             </form>
         </div>
     </div>
 </section>
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
