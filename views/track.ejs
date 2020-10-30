@@ -49,95 +49,52 @@
                         <input type="text" name="text" class="white-text">
                         <input type="hidden" id="" name="spotifyId" value="<%=`${track.id}`%>">
                         <button type="submit" class="btn white-text">add comment</button>
-
-
-                        <h1>
-                            <%= track.name %>
-                        </h1>
-                        <h2>by
-                            <a href="/artists/<%=track.artists[0].id%>">
-                                <%= track.artists[0].name %>
-                            </a>
-                        </h2>
-                        <img src="<%= track.album.images[1].url %>" alt="">
-
-                        <audio controls>
-    <source src="<%= track.preview_url %>">
-  Your browser does not support the audio element.
-  </audio>
-
-                        <div class="comment">
-                            <!-- Comment POST form -->
-                            <form action="/track" method="POST">
-                                <input type="text" name="text" class="white-text">
-                                <input type="hidden" id="" name="spotifyId" value="<%=`${track.id}`%>">
-                                <button type="submit" class="btn white-text">add comment</button>
-                            </form>
-                            <hr>
-                        </div>
+                    </form>
+                    <hr>
+                </div>
 
 
 
 
 
-                        <% if (comments.length>0){ %>
-                            <% for( let i = 0; i < comments.length; i++ ) { %>
-                                <div>
-                                    <p>
+
+                <div class="pre-scrollable">
+
+
+                    <% if (comments.length>0){ %>
+                        <% for( let i = 0; i < comments.length; i++ ) { %>
+                            <div>
+                                <div class="float-right">
+                                    <p class="userName">
                                         <%= comments[i].dataValues.user.name %>
                                     </p>
-                                    <img src="<%= comments[i].dataValues.user.profilePic %>" alt="">
+                                </div>
+                                <div class="float-left">
+
+                                    <img src="<%= comments[i].dataValues.user.profilePic %>" class="userPic" alt="">
+                                </div>
+                                <div class="float-center">
                                     <p>
                                         <%= comments[i].dataValues.text %>
                                     </p>
+                                </div>
+                                <div class="del-edit">
+                                    <!-- Comment PUT Link -->
+                                    <a href="/cryptids/edit/<%= comments[i].dataValues.id %>">Edit</a>
 
-                                    <!-- Comment EDIT BUTTON -->
-                                    <form method="GET" action="/edit/<%= comments[i].dataValues.id %>">
-                                        <input type="submit" value="Edit">
-                                    </form>
                                     <!-- Comment DELETE Form -->
                                     <form method="POST" action="/comment/<%= comments[i].dataValues.id %>/?_method=DELETE">
                                         <input type="submit" value="Delete">
                                     </form>
-                                    <hr>
                                 </div>
-                                <div class="pre-scrollable">
 
+                                <hr>
+                            </div>
+                            <% } %>
+                                <%}%>
 
-                                    <% if (comments.length>0){ %>
-                                        <% for( let i = 0; i < comments.length; i++ ) { %>
-                                            <div>
-                                                <div class="float-right">
-                                                    <p class="userName">
-                                                        <%= comments[i].dataValues.user.name %>
-                                                    </p>
-                                                </div>
-                                                <div class="float-left">
-
-                                                    <img src="<%= comments[i].dataValues.user.profilePic %>" class="userPic" alt="">
-                                                </div>
-                                                <div class="float-center">
-                                                    <p>
-                                                        <%= comments[i].dataValues.text %>
-                                                    </p>
-                                                </div>
-                                                <div class="del-edit">
-                                                    <!-- Comment PUT Link -->
-                                                    <a href="/cryptids/edit/<%= comments[i].dataValues.id %>">Edit</a>
-
-                                                    <!-- Comment DELETE Form -->
-                                                    <form method="POST" action="/comment/<%= comments[i].dataValues.id %>/?_method=DELETE">
-                                                        <input type="submit" value="Delete">
-                                                    </form>
-                                                </div>
-
-                                                <hr>
-                                            </div>
-                                            <% } %>
-                                                <%}%>
-
-                                </div>
                 </div>
+            </div>
 
         </section>
 

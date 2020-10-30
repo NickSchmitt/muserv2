@@ -6,7 +6,7 @@
 
 :root {
     --jumbotron-padding-y: 3rem;
-    color: black;
+    color: green;
 }
 
 .h12 {
@@ -49,6 +49,9 @@
 .login-form:hover {
     box-shadow: 0 8px 8px 0 rgba(0, 0, 0, 0.24), 0 8px 8px 0 rgba(0, 0, 0, 0.19);
     transition: all ease 0.3s;
+    transition: all 0.5s ease;
+    background: black;
+    padding: 20px;
 }
 
 .jumbotron {
@@ -70,13 +73,12 @@
 }
 
 .jumbotron-heading {
-    font-weight: 300;
+    font-weight: 400;
 }
 
 .jumbotron .container {
     max-width: 40rem;
-    background: rgba(0, 0, 0, .09);
-    padding: 2rem;
+    padding: 7rem;
     border-radius: 5px;
 }
 
@@ -110,15 +112,11 @@ footer p {
     border-radius: 5px;
 }
 
-
-/* .btn-primary,
-.btn-primary:hover,
-.btn-primary:active,
-.btn-primary:visited {
-    background-color: #9ddad2 !important;
+.index-button:hover {
+    transition: all 0.5s ease;
+    background: black;
+    padding: 6px;
 }
-
-*/
 
 .muser {
     animation: shake 2s;
