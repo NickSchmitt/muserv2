@@ -50,6 +50,11 @@ app.get('/', isLoggedIn, (req, res) => {
     }
 })
 
+
+
+//--------checks if user is signed in and grabs all comments from comment database 
+
+
 app.get('/profile', isLoggedIn, (req, res) => {
     db.comment.findAll().then((allComments) => {
         res.render('profile', {
@@ -59,6 +64,8 @@ app.get('/profile', isLoggedIn, (req, res) => {
 })
 
 
+
+//--------
 
 app.get('/results', (req, res) => {
     const queryString = {
@@ -77,8 +84,6 @@ app.get('/results', (req, res) => {
             }
         )
         .then(function(response) {
-            // console.log(chalk.red(response.data.artists.items))
-            // res.send(response.data)
             res.render('results', {
                 data: response.data,
                 params: queryString.params,
@@ -88,6 +93,11 @@ app.get('/results', (req, res) => {
             console.log(error)
         })
 })
+
+
+
+//--------
+
 
 app.get('/tracks/:id', function(req, res) {
     const queryString = {
@@ -121,46 +131,55 @@ app.get('/tracks/:id', function(req, res) {
         })
 })
 
-app.get('/artists/:id', function(req, res) {
-        const queryString = {
-            params: {
-                id: req.params.id,
-            },
-        }
 
-        axios
-            .get(`https://api.spotify.com/v1/artists/${queryString.params.id}`, {
-                headers: {
-                    Authorization: `Bearer ${req.user.access}`,
-                },
-            })
-            .then(function(artistResponse) {
-                axios
-                    .get(
-                        `https://api.spotify.com/v1/artists/${queryString.params.id}/top-tracks?country=US`, {
-                            headers: {
-                                Authorization: `Bearer ${req.user.access}`,
-                            },
-                        }
-                    )
-                    .then(function(topTracksResponse) {
-                        res.render('artist', {
-                            artist: artistResponse.data,
-                            tracks: topTracksResponse.data.tracks,
-                        })
+
+//--------
+
+
+
+app.get('/artists/:id', function(req, res) {
+    const queryString = {
+        params: {
+            id: req.params.id,
+        },
+    }
+
+    axios
+        .get(`https://api.spotify.com/v1/artists/${queryString.params.id}`, {
+            headers: {
+                Authorization: `Bearer ${req.user.access}`,
+            },
+        })
+        .then(function(artistResponse) {
+            axios
+                .get(
+                    `https://api.spotify.com/v1/artists/${queryString.params.id}/top-tracks?country=US`, {
+                        headers: {
+                            Authorization: `Bearer ${req.user.access}`,
+                        },
+                    }
+                )
+                .then(function(topTracksResponse) {
+                    res.render('artist', {
+                        artist: artistResponse.data,
+                        tracks: topTracksResponse.data.tracks,
                     })
-                    //   TODO: FIND ALL COMMENTS WHERE TRACKID'S SONG MATCHES ARTIST
-                    // db.comment
-                    //   .findAll({ where: { trackId: spotifyResponse.data.id } })
-                    //   .then((allComments) => {
-                    //     res.render('track', {
-                    //       comments: allComments,
-                    //       track: spotifyResponse.data,
-                    //     })
-                    //   })
-            })
-    })
-    // TODO: ADD A UNIQUE COMMENT TO A USER
+                })
+                //   TODO: FIND ALL COMMENTS WHERE TRACKID'S SONG MATCHES ARTIST
+                // db.comment
+                //   .findAll({ where: { trackId: spotifyResponse.data.id } })
+                //   .then((allComments) => {
+                //     res.render('track', {
+                //       comments: allComments,
+                //       track: spotifyResponse.data,
+                //     })
+                //   })
+        })
+})
+
+
+//-------- add usnique user to comment
+
 app.post('/track', (req, res) => {
     db.user
         .findOne({ where: { spotifyId: req.user.spotifyId } })
@@ -173,11 +192,12 @@ app.post('/track', (req, res) => {
                 })
                 .then(function(comment) {
                     user.addComment(comment)
-                        // console.log(comment.text)
                     res.redirect('back')
                 })
         })
 })
+
+
 
 // *** EDIT COMMENT
 app.get('/edit/:id', (req, res) => {
@@ -192,13 +212,10 @@ app.get('/edit/:id', (req, res) => {
                 comment: comment,
             })
         })
-
-    // res.render('/editcomment', {
-    //   cryptid: cryptoData[req.params.idx],
-    //   cryptidId: req.params.idx,
-    //   title: 'Home',
-    // })
 })
+
+
+
 app.put('/comments/:id', (req, res) => {
     const id = req.body.commentId
 
@@ -210,6 +227,9 @@ app.put('/comments/:id', (req, res) => {
             res.redirect('/')
         })
 })
+
+
+
 
 // *** DELETE COMMENT
 app.delete('/comment/:id', (req, res) => {
@@ -223,14 +243,21 @@ app.delete('/comment/:id', (req, res) => {
         })
 })
 
+//-------- renders about page 
+
 app.get('/about', isLoggedIn, function(req, res) {
     res.render('about')
 })
+
+
+//-------- logs  user out 
 
 app.get('/logout', function(req, res) {
     req.logout()
     res.redirect('/')
 })
+
+
 
 app.use('/auth', require('./routes/auth'))
 
