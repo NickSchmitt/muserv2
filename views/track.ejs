@@ -67,10 +67,7 @@
                             </p>
                         </div>
                         <div class="del-edit">
-                            <!-- Comment PUT Link -->
                             <a href="/cryptids/edit/<%= comments[i].dataValues.id %>">Edit</a>
-
-                            <!-- Comment DELETE Form -->
                             <form method="POST" action="/comment/<%= comments[i].dataValues.id %>/?_method=DELETE">
                                 <input type="submit" value="Delete">
                             </form>
