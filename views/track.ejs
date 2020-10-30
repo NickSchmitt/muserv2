@@ -16,91 +16,146 @@
 
 
 
-        <nav class="navbar navbar-expand-lg navbar-light navbar-fixed-top" style="background-color: #9ddad2">
-            <a class="navbar-brand" href="/"> <img src="/img/Screen_Shot_2020-10-28_at_10.21.37_PM-removebg-preview.png" height="25"> </a>
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-              <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav ml-auto">
-                    <li class="nav-item active">
-                        <a class="nav-link" href="/">Home <span class="sr-only">(current)</span></a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="/about">About</a>
-                    </li>
-
-                    <li class="nav-item">
-                        <a class="nav-link" href="/logout">Log out</a>
-                    </li>
-                </ul>
-            </div>
-        </nav>
-        </header>
 
 
-        <h1>
-            <%= track.name %>
-        </h1>
-        <h2>by
-            <a href="/artists/<%=track.artists[0].id%>">
-                <%= track.artists[0].name %>
-            </a>
-        </h2>
-        <img src="<%= track.album.images[1].url %>" alt="">
 
-        <audio controls>
+
+        <section class="jumbotron text-center">
+            <div class="container">
+
+                <p class="lead text-muted">
+                    <h1 class=" trackName">
+                        <%= track.name %>
+                    </h1>
+                    <h2>by
+                        <a href="/artists/<%=track.artists[0].id%>">
+                            <%= track.artists[0].name %>
+                        </a>
+                    </h2>
+                    <img src="<%= track.album.images[1].url %>" class="profile-pic" alt="">
+
+                    <audio controls>
+            <source src="<%= track.preview_url %>">
+          Your browser does not support the audio element.
+          </audio>
+                </p>
+                <!-- <p>
+                    <a href="#" class="btn btn-primary my-2">Sign in with Spotify</a>
+                </p> -->
+
+                <div class="comment">
+                    <!-- Comment POST form -->
+                    <form action="/track" method="POST">
+                        <input type="text" name="text" class="white-text">
+                        <input type="hidden" id="" name="spotifyId" value="<%=`${track.id}`%>">
+                        <button type="submit" class="btn white-text">add comment</button>
+
+
+                        <h1>
+                            <%= track.name %>
+                        </h1>
+                        <h2>by
+                            <a href="/artists/<%=track.artists[0].id%>">
+                                <%= track.artists[0].name %>
+                            </a>
+                        </h2>
+                        <img src="<%= track.album.images[1].url %>" alt="">
+
+                        <audio controls>
     <source src="<%= track.preview_url %>">
   Your browser does not support the audio element.
   </audio>
 
-        <div class="comment">
-            <!-- Comment POST form -->
-            <form action="/track" method="POST">
-                <input type="text" name="text" class="white-text">
-                <input type="hidden" id="" name="spotifyId" value="<%=`${track.id}`%>">
-                <button type="submit" class="btn white-text">add comment</button>
-            </form>
-            <hr>
-        </div>
+                        <div class="comment">
+                            <!-- Comment POST form -->
+                            <form action="/track" method="POST">
+                                <input type="text" name="text" class="white-text">
+                                <input type="hidden" id="" name="spotifyId" value="<%=`${track.id}`%>">
+                                <button type="submit" class="btn white-text">add comment</button>
+                            </form>
+                            <hr>
+                        </div>
 
 
 
 
 
-        <% if (comments.length>0){ %>
-            <% for( let i = 0; i < comments.length; i++ ) { %>
-                <div>
-                    <p>
-                        <%= comments[i].dataValues.user.name %>
-                    </p>
-                    <img src="<%= comments[i].dataValues.user.profilePic %>" alt="">
-                    <p>
-                        <%= comments[i].dataValues.text %>
-                    </p>
+                        <% if (comments.length>0){ %>
+                            <% for( let i = 0; i < comments.length; i++ ) { %>
+                                <div>
+                                    <p>
+                                        <%= comments[i].dataValues.user.name %>
+                                    </p>
+                                    <img src="<%= comments[i].dataValues.user.profilePic %>" alt="">
+                                    <p>
+                                        <%= comments[i].dataValues.text %>
+                                    </p>
 
-                    <!-- Comment EDIT BUTTON -->
-                    <form method="GET" action="/edit/<%= comments[i].dataValues.id %>">
-                        <input type="submit" value="Edit">
-                    </form>
-                    <!-- Comment DELETE Form -->
-                    <form method="POST" action="/comment/<%= comments[i].dataValues.id %>/?_method=DELETE">
-                        <input type="submit" value="Delete">
-                    </form>
-                    
-                    <hr>
+                                    <!-- Comment EDIT BUTTON -->
+                                    <form method="GET" action="/edit/<%= comments[i].dataValues.id %>">
+                                        <input type="submit" value="Edit">
+                                    </form>
+                                    <!-- Comment DELETE Form -->
+                                    <form method="POST" action="/comment/<%= comments[i].dataValues.id %>/?_method=DELETE">
+                                        <input type="submit" value="Delete">
+                                    </form>
+                                    <hr>
+                                </div>
+                                <div class="pre-scrollable">
+
+
+                                    <% if (comments.length>0){ %>
+                                        <% for( let i = 0; i < comments.length; i++ ) { %>
+                                            <div>
+                                                <div class="float-right">
+                                                    <p class="userName">
+                                                        <%= comments[i].dataValues.user.name %>
+                                                    </p>
+                                                </div>
+                                                <div class="float-left">
+
+                                                    <img src="<%= comments[i].dataValues.user.profilePic %>" class="userPic" alt="">
+                                                </div>
+                                                <div class="float-center">
+                                                    <p>
+                                                        <%= comments[i].dataValues.text %>
+                                                    </p>
+                                                </div>
+                                                <div class="del-edit">
+                                                    <!-- Comment PUT Link -->
+                                                    <a href="/cryptids/edit/<%= comments[i].dataValues.id %>">Edit</a>
+
+                                                    <!-- Comment DELETE Form -->
+                                                    <form method="POST" action="/comment/<%= comments[i].dataValues.id %>/?_method=DELETE">
+                                                        <input type="submit" value="Delete">
+                                                    </form>
+                                                </div>
+
+                                                <hr>
+                                            </div>
+                                            <% } %>
+                                                <%}%>
+
+                                </div>
                 </div>
-                <% } %>
-                    <%}%>
+
+        </section>
 
 
 
 
 
-                        <!-- jQuery -->
-                        <script src="//code.jquery.com/jquery.js"></script>
-                        <!-- Bootstrap JavaScript -->
-                        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
-                        </body>
+
+
+
+
+
+
+
+        <!-- jQuery -->
+        <script src="//code.jquery.com/jquery.js"></script>
+        <!-- Bootstrap JavaScript -->
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
+        </body>
 
         </html>
