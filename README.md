@@ -1,6 +1,16 @@
 # Muser
 ## Reddit threads and Youtube comment sections can be great places to discuss your favorite songs with others, but sometimes it can be difficult to find the songs you want to discuss; the scope of these platforms is too large to serve such a specific purpose well. This inconvenience inspired the creation of Muser, a discussion platform for a global community of music enthusiasts. Using your Spotify credentials, you can preview every song from the Spotify library, and comment on those songs.
 
+- As a user, I want to be able to sign up
+- As a user, I want to be able to search for a song
+- As a user, I want to be able to play the song
+- I want to be able to comment on a song
+- I want to be able to view my comments (profile) and other users comments
+- user next to the comment
+- Search by artist
+- add name to the user model
+
+
 
 # User Flow
 
