@@ -1,4 +1,3 @@
-<img src="<%= comments.dataValues.user.profilePic %>" class="userPic" alt="">
 
 
 <% for( let i = 0; i < comments.length; i++ ) { %>

@@ -16,9 +16,6 @@
 ## This brings you to a comment page where you can see what other people have written, add your own comments, and update your comments.
 <img src="public/img/WIREFRAME/Screen Shot 2020-10-30 at 8.03.10 AM.png" alt="song details"/>
 
-## You can also access your profile page, where you can see your comments and the songs associated with them, and you favorited songs.
-
-<img src="pictures/userflow.png" alt="User Flow"/>
 
 
 #### TBA functionality:
