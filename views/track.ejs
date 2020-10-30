@@ -12,6 +12,10 @@
     <script defer src="/js/main.js"></script>
 </head>
 
+
+<!--grabs relevant spotify data and renders on screen   -->
+
+
 <section class="jumbotron text-center ">
     <div class="container ">
         <p class="lead text-muted ">
@@ -30,6 +34,8 @@
                                 </audio>
         </p>
         <div class="comment">
+
+
             <!-- Comment POST form -->
             <form action="/track" method="POST">
                 <input type="text" name="text" class="white-text">
@@ -39,6 +45,7 @@
             <hr>
         </div>
 
+        <!-- creates a scrolled list with selected data fields  -->
 
         <div class="pre-scrollable" id="scroll-box" style="background-color: white;">
             <% if (comments.length>0){ %>
