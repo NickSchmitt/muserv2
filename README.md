@@ -19,17 +19,17 @@
 
 # The homepage
 
-<img src="public/img/WIREFRAME/Screen Shot 2020-10-30 at 7.27.21 AM.png" alt="home"/>
+<img src="https://imgur.com/VEWQEtG.png" alt="home"/>
 
 ## Once you sign in with your Spotify account you will land on a page where you can search by artist, song, or album.
 
-<img src="public/img/WIREFRAME/Screen Shot 2020-10-30 at 7.50.05 AM.png" alt="home page"/>
+<img src="https://imgur.com/iYhwy1E.png" alt="home page"/>
 
 ## After the page with all the relevant results loads, you can choose what search to get more information on.
-<img src="public/img/WIREFRAME/Screen Shot 2020-10-30 at 7.57.51 AM.png" alt="search results"/>
+<img src="https://imgur.com/dWfZ3VK.png" alt="search results"/>
 
 ## This brings you to a comment page where you can see what other people have written, add your own comments, and update your comments.
-<img src="public/img/WIREFRAME/Screen Shot 2020-10-30 at 8.03.10 AM.png" alt="song details"/>
+<img src="https://imgur.com/apGVHRe.png" alt="song details"/>
 
 
 

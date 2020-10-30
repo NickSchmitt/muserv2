@@ -29,10 +29,10 @@
 
 @keyframes bevbeat {
     50% {
-        transform: rotate(-45deg) scale(0.8);
+        transform: rotate(0deg) scale(0.8);
     }
     100% {
-        transform: rotate(45deg) scale(0.8);
+        transform: rotate(0deg) scale(0.8);
     }
 }
 
