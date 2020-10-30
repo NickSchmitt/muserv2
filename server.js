@@ -58,9 +58,7 @@ app.get('/profile', isLoggedIn, (req, res) => {
     })
 })
 
-// app.get('/profile', isLoggedIn, (req, res) => {
-//     res.render('profile')
-// })
+
 
 app.get('/results', (req, res) => {
     const queryString = {
@@ -183,37 +181,34 @@ app.post('/track', (req, res) => {
 
 // *** EDIT COMMENT
 app.get('/edit/:id', (req, res) => {
-  const id = req.params.id
-  console.log(chalk.red(id))
-  db.comment
-    .findOne({
-      where: { id: id },
-    })
-    .then((comment) => {
-      res.render('editcomment', {
-        comment: comment,
-      })
-    })
+    const id = req.params.id
+    console.log(chalk.red(id))
+    db.comment
+        .findOne({
+            where: { id: id },
+        })
+        .then((comment) => {
+            res.render('editcomment', {
+                comment: comment,
+            })
+        })
 
-  // res.render('/editcomment', {
-  //   cryptid: cryptoData[req.params.idx],
-  //   cryptidId: req.params.idx,
-  //   title: 'Home',
-  // })
+    // res.render('/editcomment', {
+    //   cryptid: cryptoData[req.params.idx],
+    //   cryptidId: req.params.idx,
+    //   title: 'Home',
+    // })
 })
 app.put('/comments/:id', (req, res) => {
-  const id = req.body.commentId
+    const id = req.body.commentId
 
-  db.comment
-    .update(
-      { text: req.body.text },
-      {
-        where: { id: id },
-      }
-    )
-    .then((comment) => {
-      res.redirect('/')
-    })
+    db.comment
+        .update({ text: req.body.text }, {
+            where: { id: id },
+        })
+        .then((comment) => {
+            res.redirect('/')
+        })
 })
 
 // *** DELETE COMMENT

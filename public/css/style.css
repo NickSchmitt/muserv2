@@ -17,10 +17,23 @@
     margin-left: 15rem;
 }
 
-.profile-pic {
-    height: 150px;
-    width: 150px;
+.album-pic {
+    height: 300px;
+    width: 300px;
     border-radius: 5px;
+}
+
+.album-pic:hover {
+    animation: animateHeart 1.2s infinite;
+}
+
+@keyframes animateHeart {
+    50% {
+        transform: rotate(-45deg) scale(0.8);
+    }
+    100% {
+        transform: rotate(45deg) scale(0.8);
+    }
 }
 
 .userPic {
@@ -35,11 +48,12 @@
 
 .del-edit {
     display: flex;
-    margin-bottom: auto;
+    height: 15px;
+    width: 15px;
 }
 
 .login-form {
-    background-color: #9ddad2;
+    background-color: #b0cce8;
     border: none;
     color: white;
     padding: 15px 32px;
@@ -82,7 +96,7 @@
 
 .jumbotron .container {
     max-width: 40rem;
-    padding: 7rem;
+    padding: 3rem;
     border-radius: 5px;
 }
 
@@ -106,7 +120,7 @@ footer p {
 }
 
 .index-button {
-    background-color: #9ddad2;
+    background-color: #b0cce8;
     border: none;
     color: white;
     text-align: center;
